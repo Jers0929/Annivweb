@@ -122,10 +122,28 @@
       }
     }
 
+    /* Music hint */
+    .music-hint {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      font-size: 0.9em;
+      background: rgba(0,0,0,0.4);
+      padding: 8px 12px;
+      border-radius: 10px;
+      animation: fadeIn 2s ease;
+    }
   </style>
 </head>
 <body>
   <header>Our Anniversary 💕 | September 29, 2024 – September 29, 2025</header>
+
+  <!-- Background music -->
+  <audio id="bg-music" autoplay loop>
+    <source src="audio.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <div class="music-hint">🎶 Theme Song Playing - Bawat Sandali</div>
 
   <div class="container">
     <!-- Sidebar -->
@@ -147,7 +165,7 @@
 
     <!-- Content -->
     <div class="content" id="display">
-      <img src="home.jpg" alt="Home">
+      <img src="img1.jpg" alt="Home">
       <div class="message">Welcome to our love story ❤️ This year has been so special, and I want to celebrate every month with you.</div>
     </div>
   </div>
@@ -164,7 +182,7 @@
           message = 'Welcome to our love story ❤️ This year has been so special, and I want to celebrate every month with you.';
           break;
         case 'oct':
-          imgSrc = 'oct.jpg';
+          imgSrc = "img1.jpg" ;
           message = 'October 🍂: The month our story continued with so much love.';
           break;
         case 'nov':
@@ -218,6 +236,14 @@
         <div class="message">${message}</div>
       `;
     }
+
+    // Fix autoplay on mobile (play after first touch)
+    document.body.addEventListener("click", () => {
+      const music = document.getElementById("bg-music");
+      if (music.paused) {
+        music.play();
+      }
+    }, { once: true });
   </script>
 </body>
 </html>
