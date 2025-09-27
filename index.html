@@ -13,7 +13,7 @@
       background-size: cover;
     }
 
-    header {
+  header {
       background: linear-gradient(90deg, #ff758c, #ff7eb3, #ffb199);
       color: white;
       padding: 25px;
@@ -31,7 +31,6 @@
       width: 100%;
       z-index: 1000;
     }
-
     header::before, header::after {
       content: "💖";
       position: absolute;
@@ -41,7 +40,6 @@
     }
     header::before { left: 20px; top: 10px; }
     header::after { right: 20px; top: 10px; animation-delay: 2s; }
-
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-8px); }
@@ -52,9 +50,8 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 12px;
-      margin: 20px;
+      margin: 120px 20px 20px;
     }
-
     nav button, nav select {
       width: 150px;
       padding: 10px;
@@ -65,7 +62,6 @@
       text-align: center;
       transition: background 0.3s, transform 0.3s;
     }
-
     nav button {
       background: white;
       color: #f24a72;
@@ -75,7 +71,6 @@
       color: #a83250;
       transform: scale(1.05);
     }
-
     nav select {
       background: linear-gradient(135deg, #ffdde1, #ee9ca7);
       color: #333;
@@ -97,13 +92,14 @@
       transform: translateY(20px);
       transition: opacity 0.6s ease, transform 0.6s ease;
       text-align: center;
+      display: none;
     }
     .content.show { 
+      display: block;
       opacity: 1; 
       transform: translateY(0);
     }
 
-    /* Circle logo ONLY for Home */
     #monthContent.home img.logo {
       width: 150px;
       height: 150px;
@@ -114,8 +110,6 @@
       border: 3px solid white;
       animation: fadeInScale 0.8s ease;
     }
-
-    /* Rectangle for Months */
     .content img.month-img {
       width: 70%;
       max-width: 100px;
@@ -126,13 +120,11 @@
       border: 2px solid #eee;
       animation: fadeInScale 0.8s ease;
     }
-
     @keyframes fadeInScale {
       from { opacity: 0; transform: scale(0.9); }
       to { opacity: 1; transform: scale(1); }
     }
 
-    /* 🎞 Gallery */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -150,13 +142,11 @@
       cursor: pointer;
     }
     .gallery img:hover { transform: scale(1.05); }
-
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
 
-    /* Lightbox (zoom feature) */
     #lightbox {
       display: none;
       position: fixed;
@@ -177,7 +167,6 @@
       display: flex;
     }
 
-    /* Music Player */
     #musicPlayer {
       position: fixed;
       bottom: 20px;
@@ -204,7 +193,6 @@
       transition: transform 0.2s;
     }
     #playPauseBtn:hover { transform: scale(1.1); }
-
     #playlist { list-style: none; padding: 0; margin: 0; }
     #playlist li {
       padding: 5px;
@@ -213,7 +201,6 @@
       transition: background 0.2s;
     }
     #playlist li:hover { background: rgba(255,255,255,0.2); }
-
     @keyframes slideUp {
       from { transform: translateY(30px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
@@ -232,7 +219,6 @@
       animation: fadeIn 1s ease;
     }
 
-    /* 📱 Responsive tweaks */
     @media (max-width: 600px) {
       header { font-size: 20px; padding: 18px; }
       nav button, nav select { width: 120px; font-size: 14px; }
@@ -416,6 +402,7 @@
   </script>
 </body>
 </html>
+
 
 
 
