@@ -1,249 +1,418 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Anniversary ❤️</title>
+  <title>Our Anniversary 💕</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-      color: #fff;
-      overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+      padding: 80px 0 0 0;
+      font-family: Arial, sans-serif;
+      background: url("anniv background.jpg") no-repeat center center fixed;
+      background-size: cover;
     }
 
     header {
-      background: #e63946;
-      padding: 15px;
-      text-align: center;
-      font-size: 1.5em;
-      font-weight: bold;
+      background: linear-gradient(90deg, #ff758c, #ff7eb3, #ffb199);
       color: white;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      padding: 25px;
+      font-size: 24px;
+      font-weight: bold;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      text-align: center;
+      letter-spacing: 1px;
+      border-bottom: 4px solid rgba(255,255,255,0.3);
+      border-radius: 0 0 25px 25px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
     }
 
-    .container {
-      display: flex;
-      flex: 1;
+    header::before, header::after {
+      content: "💖";
+      position: absolute;
+      font-size: 28px;
+      animation: float 4s infinite ease-in-out;
+      opacity: 0.7;
+    }
+    header::before { left: 20px; top: 10px; }
+    header::after { right: 20px; top: 10px; animation-delay: 2s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
 
-    /* Sidebar */
-    .sidebar {
-      width: 220px;
-      background: #ff4d6d;
-      padding: 20px 10px;
+    nav {
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      transition: transform 0.3s ease;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 20px;
     }
 
-    .sidebar button {
-      background: white;
-      color: #e63946;
+    nav button, nav select {
+      width: 150px;
+      padding: 10px;
       border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 1em;
+      border-radius: 12px;
+      font-weight: bold;
       cursor: pointer;
-      transition: all 0.3s ease;
+      text-align: center;
+      transition: background 0.3s, transform 0.3s;
     }
 
-    .sidebar button:hover {
-      background: #e63946;
-      color: white;
+    nav button {
+      background: white;
+      color: #f24a72;
+    }
+    nav button:hover {
+      background: #fcd2d2;
+      color: #a83250;
       transform: scale(1.05);
     }
 
-    /* Main content */
+    nav select {
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      color: #333;
+    }
+    nav select:hover {
+      background: linear-gradient(135deg, #f9d6d2, #f6a5a5);
+    }
+
     .content {
-      flex: 1;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      min-height: 350px;
+      margin: 50px auto;
+      padding: 30px;
+      width: 85%;
+      max-width: 420px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
       text-align: center;
+    }
+    .content.show { 
+      opacity: 1; 
+      transform: translateY(0);
+    }
+
+    /* Circle logo ONLY for Home */
+    #monthContent.home img.logo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      border: 3px solid white;
+      animation: fadeInScale 0.8s ease;
+    }
+
+    /* Rectangle for Months */
+    .content img.month-img {
+      width: 70%;
+      max-width: 100px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin: 10px auto;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+      border: 2px solid #eee;
+      animation: fadeInScale 0.8s ease;
+    }
+
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* 🎞 Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      width: 100%;
+      animation: fadeIn 0.8s ease;
+    }
+    .gallery img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    .gallery img:hover { transform: scale(1.05); }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Lightbox (zoom feature) */
+    #lightbox {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+    #lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    #lightbox:target {
+      display: flex;
+    }
+
+    /* Music Player */
+    #musicPlayer {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 160px;
+      background: linear-gradient(135deg, #2c3e50, #4ca1af);
+      border-radius: 20px;
+      padding: 12px;
+      color: white;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+      text-align: center;
+      font-size: 13px;
+      animation: slideUp 1s ease;
+    }
+    #playPauseBtn {
+      background: white;
+      color: #4ca1af;
+      border: none;
+      border-radius: 50%;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 10px;
+      transition: transform 0.2s;
+    }
+    #playPauseBtn:hover { transform: scale(1.1); }
+
+    #playlist { list-style: none; padding: 0; margin: 0; }
+    #playlist li {
+      padding: 5px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    #playlist li:hover { background: rgba(255,255,255,0.2); }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    footer {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 15px 15px 0 0;
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+      color: #444;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.2);
       animation: fadeIn 1s ease;
     }
 
-    .content img {
-      width: 100%;
-      max-width: 400px;
-      border-radius: 15px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-      margin-bottom: 20px;
-      transition: transform 0.6s ease;
-    }
-
-    .content img:hover {
-      transform: scale(1.05);
-    }
-
-    .message {
-      font-size: 1.3em;
-      background: rgba(230,57,70,0.8);
-      padding: 15px;
-      border-radius: 12px;
-      max-width: 500px;
-      animation: slideUp 1s ease;
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-
-    @keyframes slideUp {
-      from {transform: translateY(30px); opacity: 0;}
-      to {transform: translateY(0); opacity: 1;}
-    }
-
-    /* Mobile responsive */
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-
-      .sidebar {
-        width: 100%;
-        flex-direction: row;
-        overflow-x: auto;
-        justify-content: center;
-      }
-
-      .sidebar button {
-        flex: 0 0 auto;
-      }
-    }
-
-    /* Music hint */
-    .music-hint {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      font-size: 0.9em;
-      background: rgba(0,0,0,0.4);
-      padding: 8px 12px;
-      border-radius: 10px;
-      animation: fadeIn 2s ease;
+    /* 📱 Responsive tweaks */
+    @media (max-width: 600px) {
+      header { font-size: 20px; padding: 18px; }
+      nav button, nav select { width: 120px; font-size: 14px; }
+      .content { width: 95%; padding: 12px; }
+      #monthContent.home img.logo { width: 120px; height: 120px; }
+      .content img.month-img { max-width: 100%; }
     }
   </style>
 </head>
 <body>
-  <header>Our Anniversary 💕 | September 29, 2024 – September 29, 2025</header>
+  <header>💕 Happy 1st Anniversary 💕</header>
 
-  <!-- Background music -->
-  <audio id="bg-music" autoplay loop>
-    <source src="audio.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  <div class="music-hint">🎶 Theme Song Playing - Bawat Sandali</div>
+  <nav>
+    <button onclick="showHome()">Home</button>
+    <button onclick="showMemories()">Best Memories</button>
+    <select onchange="showContent(this.value)">
+      <option value="">Our Journey</option>
+      <option value="oct">October</option>
+      <option value="nov">November</option>
+      <option value="dec">December</option>
+      <option value="jan">January</option>
+      <option value="feb">February</option>
+      <option value="mar">March</option>
+      <option value="apr">April</option>
+      <option value="may">May</option>
+      <option value="jun">June</option>
+      <option value="jul">July</option>
+      <option value="aug">August</option>
+      <option value="sep">September</option>
+    </select>
+  </nav>
 
-  <div class="container">
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <button onclick="showContent('home')">Home</button>
-      <button onclick="showContent('oct')">October</button>
-      <button onclick="showContent('nov')">November</button>
-      <button onclick="showContent('dec')">December</button>
-      <button onclick="showContent('jan')">January</button>
-      <button onclick="showContent('feb')">February</button>
-      <button onclick="showContent('mar')">March</button>
-      <button onclick="showContent('apr')">April</button>
-      <button onclick="showContent('may')">May</button>
-      <button onclick="showContent('jun')">June</button>
-      <button onclick="showContent('jul')">July</button>
-      <button onclick="showContent('aug')">August</button>
-      <button onclick="showContent('sep')">September</button>
-    </div>
-
-    <!-- Content -->
-    <div class="content" id="display">
-      <img src="img1.jpg" alt="Home">
-      <div class="message">Welcome to our love story ❤️ This year has been so special, and I want to celebrate every month with you.</div>
-    </div>
+  <div id="monthContent" class="content home show">
+    <img src="home.jpg" alt="Our Logo" class="logo">
+    <p>💕 Hi Love, Happy 1st Anniversary! 💕 Ang bilis ng panahon, isang taon na agad mula nang magsimula ang love story natin. Ang dami nating pinagdaanan—mula sa mga mahabang videocall at kantahan, hanggang sa mga sweet moments na magkasama tayo sa personal. Kahit may mga panahon na malayo tayo sa isa’t isa, pinili pa rin nating manatiling matatag at ipaglaban ang pagmamahalan natin. Sobrang saya ko dahil sa bawat buwan, mas lalo kitang minamahal at mas nakikita ko na ikaw ang gusto kong makasama habang buhay. Thank you kasi lagi kang nandiyan para sa akin. Cheers to us, love, sa una nating taon at sa mas marami pang darating! 💖</p>
   </div>
 
+  <!-- Lightbox container -->
+  <div id="lightbox">
+    <img id="lightboxImg" src="" alt="Zoomed Image">
+  </div>
+
+  <div id="musicPlayer">
+    <p>Please choose a song</p>
+    <audio id="bgMusic" loop autoplay>
+      <source src="voice.m4a" type="audio/mpeg">
+    </audio>
+    <button id="playPauseBtn">⏸</button>
+    <ul id="playlist">
+      <li onclick="playSong('audio.mp3')">Song 1</li>
+      <li onclick="playSong('song2.mp3')">Song 2</li>
+      <li onclick="playSong('song3.mp3')">Song 3</li>
+    </ul>
+  </div>
+
+  <footer>
+    💕 Our Anniversary | September 29, 2024 – September 29, 2025 💕
+  </footer>
+
   <script>
-    function showContent(month) {
-      const display = document.getElementById('display');
-      let imgSrc = '';
-      let message = '';
+    const music = document.getElementById("bgMusic");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
 
-      switch(month) {
-        case 'home':
-          imgSrc = 'home.jpg';
-          message = 'Welcome to our love story ❤️ This year has been so special, and I want to celebrate every month with you.';
-          break;
-        case 'oct':
-          imgSrc = "img1.jpg" ;
-          message = 'October 🍂: The month our story continued with so much love.';
-          break;
-        case 'nov':
-          imgSrc = 'nov.jpg';
-          message = 'November 🦃: Grateful every day for you, my love.';
-          break;
-        case 'dec':
-          imgSrc = 'dec.jpg';
-          message = 'December 🎄: My favorite gift will always be you.';
-          break;
-        case 'jan':
-          imgSrc = 'jan.jpg';
-          message = 'January ❄️: Starting the new year together, full of dreams.';
-          break;
-        case 'feb':
-          imgSrc = 'feb.jpg';
-          message = 'February ❤️: You will forever be my Valentine.';
-          break;
-        case 'mar':
-          imgSrc = 'mar.jpg';
-          message = 'March 🌸: Love blooms like spring with you.';
-          break;
-        case 'apr':
-          imgSrc = 'apr.jpg';
-          message = 'April 🌧️: Through rain or shine, I’ll always be with you.';
-          break;
-        case 'may':
-          imgSrc = 'may.jpg';
-          message = 'May 🌹: Our love grows stronger every day.';
-          break;
-        case 'jun':
-          imgSrc = 'jun.jpg';
-          message = 'June 🌞: Halfway through the year, still falling for you.';
-          break;
-        case 'jul':
-          imgSrc = 'jul.jpg';
-          message = 'July ☀️: Summer is warm, but your love is warmer.';
-          break;
-        case 'aug':
-          imgSrc = 'aug.jpg';
-          message = 'August 🌻: Endless summer, endless love.';
-          break;
-        case 'sep':
-          imgSrc = 'sep.jpg';
-          message = 'September 🎉: Our anniversary month ❤️ Forever and always.';
-          break;
-      }
-
-      display.innerHTML = `
-        <img src="${imgSrc}" alt="${month}">
-        <div class="message">${message}</div>
-      `;
-    }
-
-    // Fix autoplay on mobile (play after first touch)
-    document.body.addEventListener("click", () => {
-      const music = document.getElementById("bg-music");
+    playPauseBtn.addEventListener("click", () => {
       if (music.paused) {
         music.play();
+        playPauseBtn.textContent = "⏸";
+      } else {
+        music.pause();
+        playPauseBtn.textContent = "▶";
       }
-    }, { once: true });
+    });
+
+    function playSong(file) {
+      music.src = file;
+      music.play().then(() => playPauseBtn.textContent = "⏸");
+    }
+
+    window.addEventListener("load", () => {
+      music.play().then(() => playPauseBtn.textContent = "⏸")
+        .catch(() => playPauseBtn.textContent = "▶");
+    });
+
+    function showHome() {
+      let content = document.getElementById("monthContent");
+      content.className = "content home show"; 
+      content.innerHTML = `
+        <img src="home.jpg" alt="Our Logo" class="logo">
+        <p>💕 Hi Love, Happy 1st Anniversary! 💕 ...</p>`;
+    }
+
+    function showMemories() {
+      let content = document.getElementById("monthContent");
+      content.className = "content show"; 
+      content.innerHTML = `
+        <h2>Best Memories 💕</h2>
+        <div class="gallery">
+          <img src="1.jpg" alt="Memory 1" onclick="openLightbox(this)">
+          <img src="2.jpg" alt="Memory 2" onclick="openLightbox(this)">
+          <img src="3.jpg" alt="Memory 3" onclick="openLightbox(this)">
+          <img src="4.jpg" alt="Memory 4" onclick="openLightbox(this)">
+          <img src="5.jpg" alt="Memory 5" onclick="openLightbox(this)">
+          <img src="6.jpg" alt="Memory 6" onclick="openLightbox(this)">
+          <img src="7.jpg" alt="Memory 1" onclick="openLightbox(this)">
+          <img src="8.jpg" alt="Memory 2" onclick="openLightbox(this)"> 
+          <img src="9.jpg" alt="Memory 3" onclick="openLightbox(this)"> 
+          <img src="10.jpg" alt="Memory 4" onclick="openLightbox(this)"> 
+          <img src="11.jpg" alt="Memory 5" onclick="openLightbox(this)"> 
+          <img src="12.jpg" alt="Memory 6" onclick="openLightbox(this)"> 
+          <img src="13.jpg" alt="Memory 1" onclick="openLightbox(this)"> 
+          <img src="14.jpg" alt="Memory 2" onclick="openLightbox(this)"> 
+          <img src="15.jpg" alt="Memory 3" onclick="openLightbox(this)"> 
+          <img src="16.jpg" alt="Memory 4" onclick="openLightbox(this)"> 
+          <img src="17.jpg" alt="Memory 5" onclick="openLightbox(this)">
+          <img src="18.jpg" alt="Memory 6" onclick="openLightbox(this)"> 
+          <img src="19.jpg" alt="Memory 1" onclick="openLightbox(this)"> 
+          <img src="20.jpg" alt="Memory 2" onclick="openLightbox(this)"> 
+          <img src="21.jpg" alt="Memory 3" onclick="openLightbox(this)"> 
+          <img src="22.jpg" alt="Memory 4" onclick="openLightbox(this)"> 
+          <img src="23.jpg" alt="Memory 5" onclick="openLightbox(this)"> 
+          <img src="24.jpg" alt="Memory 6" onclick="openLightbox(this)"> 
+          <img src="25.jpg" alt="Memory 1" onclick="openLightbox(this)"> 
+          <img src="26.jpg" alt="Memory 2" onclick="openLightbox(this)"> 
+          <img src="27.jpg" alt="Memory 3" onclick="openLightbox(this)"> 
+          <img src="28.jpg" alt="Memory 4" onclick="openLightbox(this)"> 
+          <img src="29.jpg" alt="Memory 5" onclick="openLightbox(this)"> 
+          <img src="30.jpg" alt="Memory 6" onclick="openLightbox(this)"> 
+          <img src="31.jpg" alt="Memory 1" onclick="openLightbox(this)"> 
+          <img src="32.jpg" alt="Memory 2" onclick="openLightbox(this)"> 
+          <img src="33.jpg" alt="Memory 3" onclick="openLightbox(this)"> 
+          <img src="34.jpg" alt="Memory 4" onclick="openLightbox(this)"> 
+          <img src="35.jpg" alt="Memory 5" onclick="openLightbox(this)"> 
+          <img src="36.jpg" alt="Memory 6" onclick="openLightbox(this)"> 
+          <img src="37.jpg" alt="Memory 4" onclick="openLightbox(this)"> 
+          <img src="38.jpg" alt="Memory 5" onclick="openLightbox(this)"> 
+          <img src="39.jpg" alt="Memory 6" onclick="openLightbox(this)"> 
+          <img src="40.jpg" alt="Memory 4" onclick="openLightbox(this)"> 
+          <img src="41.jpg" alt="Memory 5" onclick="openLightbox(this)"> 
+          <img src="42.jpg" alt="Memory 6" onclick="openLightbox(this)"> 
+          <img src="43.jpg" alt="Memory 4" onclick="openLightbox(this)"> 
+          <img src="44.jpg" alt="Memory 5" onclick="openLightbox(this)">
+          <img src="45.jpg" alt="Memory 5" onclick="openLightbox(this)"> 
+          <img src="46.jpg" alt="Memory 6" onclick="openLightbox(this)"> 
+          <img src="47.jpg" alt="Memory 4" onclick="openLightbox(this)"> 
+          <img src="48.jpg" alt="Memory 5" onclick="openLightbox(this)">
+        </div>`;
+    }
+
+    function openLightbox(img) {
+      lightboxImg.src = img.src;
+      lightbox.style.display = "flex";
+    }
+
+    lightbox.addEventListener("click", () => {
+      lightbox.style.display = "none";
+    });
+
+    function showContent(month) {
+      if (!month) return; 
+      let content = document.getElementById("monthContent");
+      let messages = {
+       oct: { img: "october.jpg", text: "October 💕 Unang buwan natin as a couple 💕 Super happy natin kahit sa videocall lang tayo nag-uusap. Andami nating time para mag usap at marami rin tayong napagkukwentuhan. Sarap mainlove sayo, love. Kahit malayo, ramdam ko agad kung gaano ka ka-special sa akin. Doon ko na-realize na ikaw na talaga ang gusto kong makasama palagi." }, 
+       nov: { img: "november.jpg", text: "November 🌹 Second month natin 🥰 kahit puro videocall pa rin, sobrang saya natin together. Lagi kitang kinakantahan at tinutugtugan ng gitara. Miss na miss ko yung mga gabing magkausap tayo hanggang antok na antok na" }, 
+       dec: { img: "december.jpg", text: "December 🎄 Our 3rd month 💖 After ilang buwan, nagkita rin ulit tayo as a couple. Ang sarap sa pakiramdam, huhu. First date natin bilang couple, sobrang saya ko nun. Yun yung isa sa pinaka-special na araw para satin." }, 
+       jan: { img: "january.jpg", text: "January ❄️ Bagong taon na kasama ka sa buhay ko 🎆 Ang saya kasi start pa lang ng year, alam kong ikaw na yung blessing na hinding-hindi ko ipagpapalit." }, 
+       feb: { img: "february.jpg", text: "February 💘Valentine’s month 💘 At yun din ang unang beses na nakapasyal ako sa inyo at ipinakilala kila tita mo. Ang sarap sa feeling na maipakilala. Kahit simple lang celebration natin, ramdam ko na ikaw yung pinaka-sweet na regalo na binigay sa’kin ni Lord" }, 
+       mar: { img: "march.jpg", text: "March 🌸 Dumaan man yung mga normal na araw, lagi kong nararamdaman yung effort at love mo. Ang sarap sa pakiramdam na may ikaw sa tabi ko." }, 
+       apr: { img: "april.jpg", text: "April 🌼 Your birth month. Unang beses na nakitulog ako sa inyo at kasama kitang magcelebrate ng birthday mo. I was so happy that time kasi bukod sa kasama kita sa iisang bahay, nakilala ko rin si mommy natin hehe. Sobrang sarap ulit sa pakiramdam love." }, 
+       may: { img: "may.jpg", text: "May 🌷 Our love grows stronger. Malungkot ang mga araw na to kasi magkalayo na tayo at may mga time rin na hindi tayo nagkakaintindihan. Pero kahit ganun ay hindi tayo sumuko, and i'm thankful kasi kinaya natin ang buwan na ito." }, 
+       jun: { img: "june.jpg", text: "June 🌞 Kahit magkalayo tayo, unti-unti ring bumalik yung saya. Lagi tayong umaasa na magkakasama ulit, at yun ang nagpapalakas satin araw-araw." }, 
+       jul: { img: "july.jpg", text: "July 🎆 At sa wakas ay magkasama na naman ulit tayo pagkatapos ng ilang buwan na pananabik. Sobrang saya na mayakap ulit kita at makasama. At mas masaya dahil mas malapit na tayo sa isa't isa" }, 
+       aug: { img: "august.jpg", text: "August ☀️ Ang dami nating good vibes kasama ang pamilya mo. Super happy din kasi nakilala ko ang pamilya mo sa nueva ecija at magkasama rin tayo sa celebration ng birthday ni avery." }, 
+       sep: { img: "september.jpg", text: "September 🎉 Happy Anniversary, Loveee! At heto na nga ang araw. Ang araw kung kailan nagsimula ang lahat. Isang taon na tayong magkasama, puno ng tawanan, iyakan, at pagmamahal. Sobrang saya ko kasi ikaw ang kasama ko sa lahat. I love you so much baby ko!" }
+      };
+      content.className = "content show"; 
+      content.innerHTML = `<img src="${messages[month].img}" alt="${month}" class="month-img">
+        <p>${messages[month].text}</p>`;
+    }
   </script>
 </body>
 </html>
