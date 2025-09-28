@@ -173,15 +173,22 @@
   bottom: 15px;
   left: 10px;
   width: 90px;       
-  background: linear-gradient(135deg, #2c3e50, #4ca1af);
+  background: rgba(44, 62, 80, 0.7); /* dark gray na may 70% opacity */
+  background: linear-gradient(
+    135deg,
+    rgba(44, 62, 80, 0.7),
+    rgba(76, 161, 175, 0.7)
+  );
   border-radius: 12px;
-  padding: 4px;         /* mas maliit padding */
+  padding: 4px;         
   color: white;
   box-shadow: 0 3px 8px rgba(0,0,0,0.3);
   text-align: center;
-  font-size: 10px;      /* mas maliit text */
-  line-height: 1.2;     /* para dikit ang text */
+  font-size: 10px;      
+  line-height: 1.2;     
+  backdrop-filter: blur(4px); /* dagdag effect para mas basahin pa */
 }
+
     #playPauseBtn {
   background: white;
   color: #4ca1af;
@@ -262,7 +269,6 @@
   </div>
 
   <div id="musicPlayer">
-    <p>Please choose a song</p>
     <audio id="bgMusic" loop autoplay>
       <source src="voice.m4a" type="audio/mpeg">
     </audio>
@@ -402,6 +408,7 @@
   </script>
 </body>
 </html>
+
 
 
 
